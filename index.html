@@ -1,0 +1,179 @@
+<title>Disponibilidad EKINYX</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --paper: #FFFFFF;
+    --paper-2: #FAF8F4;
+    --ink: #201F1C;
+    --ink-soft: #706A5C;
+    --ink-faint: #837C68;
+    --line: #E6E1D3;
+    --accent: #A9822F;
+    --accent-2: #7C838A;
+    --free: #2F7A52;
+    --free-bg: #E3F0E6;
+    --busy: #B23A2E;
+    --busy-bg: #F5E1DD;
+    --partial: #A9822F;
+    --partial-bg: #F3E9D2;
+    --transicion-bg: #FBEDA8;
+    --shadow: 0 1px 2px rgba(32,31,28,.05), 0 8px 24px -12px rgba(32,31,28,.14);
+  }
+  /* Fondo blanco siempre, sin importar el tema del dispositivo (pedido explícito de Óscar) */
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: 'Work Sans', system-ui, -apple-system, sans-serif;
+    font-variant-numeric: tabular-nums; line-height: 1.45;
+  }
+  .wrap { max-width: 1500px; width: 100%; margin: 0 auto; padding: 24px 28px 56px; box-sizing: border-box; }
+
+  .masthead { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .brand-mark {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px;
+    letter-spacing: .02em; text-transform: uppercase;
+  }
+  .brand-mark span { color: var(--accent-2); }
+  .updated {
+    margin-top: 6px; font-size: 13.5px; color: var(--ink-soft);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .updated strong { color: var(--ink); font-weight: 600; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--free); flex-shrink: 0; }
+
+  .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .1em;
+    font-weight: 600; font-size: 19px; margin: 0 0 12px;
+  }
+
+  .avail-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-2); box-shadow: var(--shadow); }
+  .avail-table { min-width: 920px; width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .avail-table col.avail-veh-col { width: 220px; }
+  .avail-veh-h {
+    border-bottom: 1px solid var(--line); text-align: left; padding: 12px 14px;
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .06em;
+    font-size: 13px; color: var(--ink-soft); font-weight: 600;
+  }
+  .avail-day-h {
+    padding: 12px 8px; text-align: center; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .avail-day-h .dow { display: block; font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); font-weight: 600; }
+  .avail-day-h .dom { display: block; font-size: 15px; font-weight: 700; }
+  .avail-table tbody tr { border-bottom: 1px solid var(--line); }
+  .avail-table tbody tr:last-child { border-bottom: none; }
+  .avail-veh { text-align: left; vertical-align: top; padding: 14px; font-weight: 600; font-size: 15.5px; }
+  .avail-veh .swatch { display: inline-block; vertical-align: middle; margin-right: 9px; }
+  .avail-veh em { font-style: normal; color: var(--ink-soft); font-weight: 400; text-transform: lowercase; margin-left: 3px; }
+  .avail-veh-text { display: inline-flex; flex-direction: column; gap: 2px; vertical-align: middle; }
+
+  /* ---------- Tarjeta de coche (icono + franja de color) en el calendario público ---------- */
+  .avail-veh.veh-card { padding: 0; }
+  .veh-icon { display: block; padding: 10px 14px 2px; color: var(--ink-soft); }
+  .veh-icon-svg { width: 28px; height: auto; display: block; }
+  .veh-card .avail-veh-text { display: block; padding: 0 14px 10px; }
+  .veh-card .veh-dias { display: block; margin-top: 2px; }
+  .veh-color-bar {
+    display: block; padding: 4px 14px; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    background: var(--swatch); color: var(--swatch-text, var(--ink));
+    border-top: 1px solid var(--line);
+  }
+  .avail-cell {
+    border-left: 1px solid var(--line); text-align: center; vertical-align: middle;
+    padding: 10px 6px; height: 62px;
+  }
+  .cell-tag, .cell-who, .cell-precio { display: block; }
+  .cell-tag { font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: normal; margin: 0 auto 2px; width: fit-content; }
+  .avail-cell.is-libre .cell-tag { color: var(--free); background: var(--free-bg); }
+  .avail-cell.is-ocupado .cell-tag { color: var(--busy); background: var(--busy-bg); }
+  .avail-cell.is-entrega .cell-tag { color: var(--busy); background: var(--transicion-bg); }
+  .avail-cell.is-devolucion .cell-tag { color: var(--free); background: var(--transicion-bg); }
+  .cell-who { font-size: 12px; color: var(--ink-faint); font-weight: 600; }
+  .cell-precio { font-size: 12px; color: var(--accent); font-weight: 700; }
+
+  .swatch {
+    width: 12px; height: 12px; border-radius: 50%; background: var(--swatch, #999);
+    border: 1px solid var(--line); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); flex-shrink: 0;
+  }
+
+  .legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-soft); }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .legend-dot.libre { background: var(--free); }
+  .legend-dot.ocupado { background: var(--busy); }
+  .legend-dot.entrega { background: var(--transicion-bg); border: 2px solid var(--busy); }
+  .legend-dot.devolucion { background: var(--transicion-bg); border: 2px solid var(--free); }
+
+  .foot { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-faint); }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 16px 14px 40px; }
+    .brand-mark { font-size: 24px; }
+    .avail-veh { padding: 8px; font-size: 13px; }
+    .avail-veh em { display: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="brand-mark">EKINYX <span>MOBILITY</span></div>
+    <div class="updated"><span class="dot"></span>Actualizado <strong>27/08/2026 · 04:14</strong></div>
+  </header>
+
+  <h2 class="eyebrow">Disponibilidad · próximos 7 días</h2>
+
+  <div class="avail-scroll">
+    <table class="avail-table">
+      <colgroup>
+        <col class="avail-veh-col">
+        <col><col><col><col><col><col><col>
+      </colgroup>
+      <thead>
+        <tr><th class="avail-veh-h">Flota</th><th class="avail-day-h"><span class="dow">jue</span><span class="dom">27 ago</span></th><th class="avail-day-h"><span class="dow">vie</span><span class="dom">28 ago</span></th><th class="avail-day-h"><span class="dow">sáb</span><span class="dom">29 ago</span></th><th class="avail-day-h"><span class="dow">dom</span><span class="dom">30 ago</span></th><th class="avail-day-h"><span class="dow">lun</span><span class="dom">31 ago</span></th><th class="avail-day-h"><span class="dow">mar</span><span class="dom">1 sep</span></th><th class="avail-day-h"><span class="dow">mié</span><span class="dom">2 sep</span></th></tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 14" class="veh-icon-svg"><path d="M2 10 L2 8.2 Q2 7.2 3 7.2 L6.2 7.2 L8.3 4.1 Q8.8 3.1 10 3.1 L15.8 3.1 Q16.9 3.1 17.4 4.1 L19 7.2 L21 7.2 Q22 7.2 22 8.2 L22 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="10.4" r="1.6" fill="currentColor"/><circle cx="17.4" cy="10.4" r="1.6" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Peugeot 208</span></div><span class="veh-color-bar" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9">Negro</span></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-entrega" title="Entrega 13:00 · Angela San Vicente Carreño"><span class="cell-tag">Entrega 13:00</span><span class="cell-who">Angela</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-ocupado" title="Angela San Vicente Carreño"><span class="cell-tag">Ocupado</span><span class="cell-who">Angela</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-ocupado" title="Angela San Vicente Carreño"><span class="cell-tag">Ocupado</span><span class="cell-who">Angela</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-ocupado" title="Angela San Vicente Carreño"><span class="cell-tag">Ocupado</span><span class="cell-who">Angela</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 13:00 · Angela San Vicente Carreño"><span class="cell-tag">Devolución 13:00</span><span class="cell-who">Angela</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 14" class="veh-icon-svg"><path d="M2 10 L2 8.2 Q2 7.2 3 7.2 L6.2 7.2 L8.3 4.1 Q8.8 3.1 10 3.1 L15.8 3.1 Q16.9 3.1 17.4 4.1 L19 7.2 L21 7.2 Q22 7.2 22 8.2 L22 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="10.4" r="1.6" fill="currentColor"/><circle cx="17.4" cy="10.4" r="1.6" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Opel Corsa</span></div><span class="veh-color-bar" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F">Blanco</span></td>
+          <td class="avail-cell is-devolucion" title="Devolución 21:30 · Martha Noemi Tapia Flores"><span class="cell-tag">Devolución 21:30</span><span class="cell-who">Martha</span><span class="cell-precio">27,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 16" class="veh-icon-svg"><path d="M2 12 L2 5.2 Q2 4.2 3 4.2 L15 4.2 Q16 4.2 16.6 5.1 L19 8.4 L21 8.4 Q22 8.4 22 9.4 L22 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="16.1" y1="4.2" x2="16.1" y2="8.4" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="12.4" r="1.7" fill="currentColor"/><circle cx="18" cy="12.4" r="1.7" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Opel Combo</span></div><span class="veh-color-bar" style="--swatch:#8B8D93;--swatch-text:#201F1C">Gris</span></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 14" class="veh-icon-svg"><path d="M2 10 L2 8.2 Q2 7.2 3 7.2 L6.2 7.2 L8.3 4.1 Q8.8 3.1 10 3.1 L15.8 3.1 Q16.9 3.1 17.4 4.1 L19 7.2 L21 7.2 Q22 7.2 22 8.2 L22 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="10.4" r="1.6" fill="currentColor"/><circle cx="17.4" cy="10.4" r="1.6" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Citroën C1</span></div><span class="veh-color-bar" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F">Blanco</span></td>
+          <td class="avail-cell is-entrega" title="Entrega 08:00 · Amanda Patricia Garcia Lopez"><span class="cell-tag">Entrega 08:00</span><span class="cell-who">Amanda</span><span class="cell-precio">22,00 €/día</span></td><td class="avail-cell is-ocupado" title="Amanda Patricia Garcia Lopez"><span class="cell-tag">Ocupado</span><span class="cell-who">Amanda</span><span class="cell-precio">22,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 21:30 · Amanda Patricia Garcia Lopez"><span class="cell-tag">Devolución 21:30</span><span class="cell-who">Amanda</span><span class="cell-precio">22,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 14" class="veh-icon-svg"><path d="M2 10 L2 8.2 Q2 7.2 3 7.2 L6.2 7.2 L8.3 4.1 Q8.8 3.1 10 3.1 L15.8 3.1 Q16.9 3.1 17.4 4.1 L19 7.2 L21 7.2 Q22 7.2 22 8.2 L22 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="10.4" r="1.6" fill="currentColor"/><circle cx="17.4" cy="10.4" r="1.6" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Opel Astra</span></div><span class="veh-color-bar" style="--swatch:#B23A2E;--swatch-text:#F8ECE9">Rojo</span></td>
+          <td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Stéphanie</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Stéphanie</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Stéphanie</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Stéphanie</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 14:00 · Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Devolución 14:00</span><span class="cell-who">Stéphanie</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 14" class="veh-icon-svg"><path d="M2 10 L2 8.2 Q2 7.2 3 7.2 L6.2 7.2 L8.3 4.1 Q8.8 3.1 10 3.1 L15.8 3.1 Q16.9 3.1 17.4 4.1 L19 7.2 L21 7.2 Q22 7.2 22 8.2 L22 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="10.4" r="1.6" fill="currentColor"/><circle cx="17.4" cy="10.4" r="1.6" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Citroën C4 Picasso</span></div><span class="veh-color-bar" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9">Negro</span></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-entrega" title="Entrega 19:30 · Sebastian Hurtado Barona"><span class="cell-tag">Entrega 19:30</span><span class="cell-who">Sebastian</span><span class="cell-precio">60,00 €/día</span></td><td class="avail-cell is-ocupado" title="Sebastian Hurtado Barona"><span class="cell-tag">Ocupado</span><span class="cell-who">Sebastian</span><span class="cell-precio">60,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 19:00 · Sebastian Hurtado Barona"><span class="cell-tag">Devolución 19:00</span><span class="cell-who">Sebastian</span><span class="cell-precio">60,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh veh-card"><span class="veh-icon"><svg viewBox="0 0 24 14" class="veh-icon-svg"><path d="M2 10 L2 8.2 Q2 7.2 3 7.2 L6.2 7.2 L8.3 4.1 Q8.8 3.1 10 3.1 L15.8 3.1 Q16.9 3.1 17.4 4.1 L19 7.2 L21 7.2 Q22 7.2 22 8.2 L22 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="1.3"/><circle cx="6.6" cy="10.4" r="1.6" fill="currentColor"/><circle cx="17.4" cy="10.4" r="1.6" fill="currentColor"/></svg></span><div class="avail-veh-text"><span>Peugeot 208</span></div><span class="veh-color-bar" style="--swatch:#EFBB2B;--swatch-text:#2B2B2F">Amarillo</span></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot libre"></span> Libre</span>
+    <span class="legend-item"><span class="legend-dot ocupado"></span> Ocupado</span>
+    <span class="legend-item"><span class="legend-dot entrega"></span> Entrega ese día</span>
+    <span class="legend-item"><span class="legend-dot devolucion"></span> Devolución ese día</span>
+  </div>
+
+  <div class="foot">Solo disponibilidad · para consultar ingresos y contratos, pide el panel completo.</div>
+</div>
