@@ -113,6 +113,8 @@
   }
   .hoy-banner ul { margin: 6px 0 0; padding-left: 20px; font-size: 13.5px; }
   .hoy-banner li { margin-bottom: 2px; }
+  .hoy-banner li.hoy-busy { color: var(--busy); }
+  .hoy-banner li.hoy-free { color: var(--free); }
   .hoy-empty { margin: 4px 0 0; font-size: 13.5px; color: var(--ink-soft); }
 
   .legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
@@ -136,12 +138,12 @@
 <div class="wrap">
   <header class="masthead">
     <div class="brand-mark">EKINYX <span>MOBILITY</span></div>
-    <div class="updated"><span class="dot"></span>Actualizado <strong>27/08/2026 · 06:21</strong></div>
+    <div class="updated"><span class="dot"></span>Actualizado <strong>27/08/2026 · 06:29</strong></div>
   </header>
 
   <h2 class="eyebrow">Disponibilidad · próximos 7 días</h2>
 
-  <div class="hoy-banner"><span class="hoy-title">Hoy</span><ul><li><strong>Devolución 21:30</strong> · Opel Corsa · Martha</li><li><strong>Entrega 08:00</strong> · Citroën C1 · Amanda</li><li>Ocupado todo el día · Opel Astra · Stéphanie</li></ul></div>
+  <div class="hoy-banner"><span class="hoy-title">Hoy</span><ul><li class="hoy-busy"><strong>Entrega 08:00</strong> · Citroën C1 · Amanda</li><li class="hoy-busy"><strong>Devolución 21:30</strong> · Opel Corsa · Martha</li><li class="hoy-free">Libre · Peugeot 208</li><li class="hoy-free">Libre · Opel Combo</li><li class="hoy-busy">Ocupado todo el día · Opel Astra · Stéphanie</li><li class="hoy-free">Libre · Citroën C4 Picasso</li><li class="hoy-free">Libre · Peugeot 208</li></ul></div>
 
   <div class="avail-scroll">
     <table class="avail-table">
